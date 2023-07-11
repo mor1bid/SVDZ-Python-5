@@ -27,23 +27,26 @@ names = ["Agent Dennis", "Killing Spree", "Hearr Icks", "Puppet Master", "Jake E
 payday = [500, 1000, 200, 360, 800]
 levelup = ["10.17%", "17.03%", "100.0%", "6.66%", "13.07%"]
 l = [l.replace('%', '') for l in levelup]
-fin = dict(i for i in zip(names, payday))
+fin = dict(i1 * i2 / i for i, (i1, i2) in zip(payday, map(float, l)))
 # res = list(fin)
 print(f'Результат\n: {fin}')
 
 # 3. Создайте функцию генератор чисел Фибоначчи
 
 def fibgen(n, fibn = 0):
-    for i in range(n + 1):
-        match i:
-            case 0, 1:
-                fibn = i
-                yield fibn
-            case _:
-                fibn = (i - 1) + (i - 2)
-                yield fibn
-        print(fibn)
-
+    for fib in range(n):
+        if fib >= 2:
+            fib = (fib - 1) + (fib - 2)
+            yield fib
+        elif fib < 0:
+            fib = (fib + 2) - (fib + 1)
+            yield fib
+        else:
+            # if fib == 1:
+            #     fibn = 1
+            # else:
+            #     fibn = 0
+            yield fib
 
 number = int(input("\n3. Введите число\n: "))
 for f in fibgen(number):
