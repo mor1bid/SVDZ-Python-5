@@ -27,25 +27,28 @@ names = ["Agent Dennis", "Killing Spree", "Hearr Icks", "Puppet Master", "Jake E
 payday = [500, 1000, 200, 360, 800]
 levelup = ["10.17%", "17.03%", "100.0%", "6.66%", "13.07%"]
 l = [l.replace('%', '') for l in levelup]
-fin = dict(i1 * i2 / i for i, (i1, i2) in zip(payday, map(float, l)))
-# res = list(fin)
+sala = list()
+for j in range(len(payday)):
+    sala.append(round(payday[j] * (float(l[j]) / 100), 2))
+fin = dict(i for i in zip(names, sala))
+# fin = (names[i] + ": " + str(round(payday[i] * (float(l[i]) / 100), 2)) for i in range(len(payday)))
+# fin = (zip(names[i], str(round(payday[i] * (float(l[i]) / 100), 2))) for i in range(len(payday)))
+# fin = {k: v for k, v in zip(names, str(round(payday * (float(l) / 100), 2)))}
 print(f'Результат\n: {fin}')
 
 # 3. Создайте функцию генератор чисел Фибоначчи
 
-def fibgen(n, fibn = 0):
-    for fib in range(n):
+def fibgen(n, mode = 1):
+    if n < 0:
+        mode = -1
+        fibn = fiby = -1
+    else:
+        fibn = fiby = 1
+    for fib in range(0, n, mode):
         if fib >= 2:
-            fib = (fib - 1) + (fib - 2)
-            yield fib
-        elif fib < 0:
-            fib = (fib + 2) - (fib + 1)
-            yield fib
+            fibn, fiby = fiby, fibn + fiby
+            yield fibn
         else:
-            # if fib == 1:
-            #     fibn = 1
-            # else:
-            #     fibn = 0
             yield fib
 
 number = int(input("\n3. Введите число\n: "))
